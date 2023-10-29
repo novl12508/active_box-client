@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-size: 14px;
+  background-color: #fff;
+  color: #6c7279;
+}
+
+.nav_link {
+  @apply hover:underline hover:opacity-100 opacity-75 transition-all duration-100;
+}
+
+.intro {
+  background-image: url("../../public/intro/intro.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.works_item:hover .works_content {
+  opacity: 0.9;
+}
+
+.posts,
+.sig_in,
+.create_post,
+.works_page {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../public/intro/intro.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
