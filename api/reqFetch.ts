@@ -1,14 +1,16 @@
 interface IReq {
   url: string;
   method: string;
-  body?: {
-    email: string;
-    name?: string;
-    password: string;
-  } | null;
+  body?:
+    | {
+        email: string;
+        name?: string;
+        password: string;
+      }
+    | {};
 }
 
-export const reqFetch = ({ url, method, body = null }: IReq) => {
+export const reqFetch = ({ url, method, body = {} }: IReq) => {
   const host = "http://localhost:5000";
   return fetch(`${host}/${url}`, {
     method,

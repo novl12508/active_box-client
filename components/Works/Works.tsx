@@ -15,8 +15,8 @@ const imgs = [
 const Works = () => {
   return (
     <div className='grid  sm:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[1px]'>
-      {imgs.map((img) => (
-        <Work src={img} />
+      {imgs.map((img, i) => (
+        <Work src={img} key={i} />
       ))}
     </div>
   );

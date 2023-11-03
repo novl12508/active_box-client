@@ -5,6 +5,8 @@ import { reqLogin } from "./api/reqLogin";
 import { reqRegister } from "./api/reqRegistr";
 import { useRouter } from "next/navigation";
 import ErrorModal from "../Error/ErrorModal";
+import Login from "@/UI/Auth/Login";
+import Registration from "@/UI/Auth/Registration";
 
 const Auth = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -12,6 +14,7 @@ const Auth = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [disable, setDisable] = useState(false);
   const router = useRouter();
 
   const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,32 +31,35 @@ const Auth = () => {
     setIsAuth((state) => !state);
   };
 
-  useEffect(() => {
-    const sleep = setTimeout(() => {
-      setError("");
-      clearTimeout(sleep);
-    }, 5000);
-  }, [error]);
-
+  // Login
   const reqLoginClick = async () => {
     try {
+      setDisable(true);
       const result = await reqLogin(email, password);
 
       const data = JSON.stringify(result);
       localStorage.setItem("user", data);
 
       console.log(result, "login");
+      setDisable(false);
       router.push("/");
     } catch (e) {
+      setDisable(false);
       if (e instanceof Error) {
         setError(e.message);
       }
-
       console.error(e, "Error ReqFetch");
+      const sleep = setTimeout(() => {
+        setError("");
+        clearTimeout(sleep);
+      }, 2000);
     }
   };
+
+  //Registration
   const reqRegistrClick = async () => {
     try {
+      setDisable(true);
       const result = await reqRegister(email, username, password);
       console.log(email, username, password);
 
@@ -61,12 +67,18 @@ const Auth = () => {
       localStorage.setItem("user", data);
 
       console.log(result, "register");
+      setDisable(false);
       router.push("/");
     } catch (e) {
+      setDisable(false);
       if (e instanceof Error) {
         setError(e.message);
       }
       console.error(e, "Error ReqFetch");
+      const sleep = setTimeout(() => {
+        setError("");
+        clearTimeout(sleep);
+      }, 2000);
     }
   };
 
@@ -108,38 +120,32 @@ const Auth = () => {
       />
       <div>
         {isAuth ? (
-          <p className='flex gap-1'>
-            Account.
-            <span
-              className='underline hover:text-blue-500 hover:no-underline cursor-pointer'
-              onClick={isAuthClick}
-            >
-              Log In
-            </span>
-          </p>
+          <Login isAuthClick={isAuthClick} />
         ) : (
-          <p className='flex gap-1'>
-            No account.
-            <span
-              className='underline hover:text-blue-500 hover:no-underline cursor-pointer'
-              onClick={isAuthClick}
-            >
-              Registration
-            </span>
-          </p>
+          <Registration isAuthClick={isAuthClick} />
         )}
       </div>
       {isAuth ? (
         <button
-          className=' px-12 py-2 rounded-md border border-blue-700 hover:text-black hover:bg-blue-700 transition-colors duration-200 uppercase'
+          className={`${
+            disable && "opacity-40"
+          } px-12 py-2 rounded-md border border-blue-700 ${
+            !disable && "hover:text-black hover:bg-blue-700"
+          } transition-colors duration-200 uppercase`}
           onClick={reqRegistrClick}
+          disabled={disable}
         >
           Registration
         </button>
       ) : (
         <button
-          className=' px-12 py-2 rounded-md border border-blue-700 hover:text-black hover:bg-blue-700 transition-colors duration-200 uppercase'
+          className={`${
+            disable && "opacity-40"
+          } px-12 py-2 rounded-md border border-blue-700 ${
+            !disable && "hover:text-black hover:bg-blue-700"
+          } transition-colors duration-200 uppercase`}
           onClick={reqLoginClick}
+          disabled={disable}
         >
           Log In
         </button>
@@ -148,5 +154,4 @@ const Auth = () => {
     </form>
   );
 };
-
 export default Auth;

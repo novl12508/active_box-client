@@ -7,14 +7,29 @@ import ErrorModal from "../Error/ErrorModal";
 
 const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
   const [error, setError] = useState("");
+  const [disable, setDisable] = useState(false);
 
-  useEffect(() => {
-    const sleep = setTimeout(() => {
-      console.log("useEffect");
-      setError("");
-      clearTimeout(sleep);
-    }, 5000);
-  }, [error]);
+  const clickLogOut = async () => {
+    try {
+      setDisable(true);
+      const data = await logout();
+
+      localStorage.clear();
+      setUser({ id: 0, email: "", name: "" });
+      setDisable(false);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+      setDisable(false);
+      console.error(err);
+      setError(JSON.stringify(err));
+      const sleep = setTimeout(() => {
+        setError("");
+        clearTimeout(sleep);
+      }, 2000);
+    }
+  };
 
   return (
     <div
@@ -38,26 +53,15 @@ const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
           <p className='normal-case'>{user.email}</p>
         </div>
 
-        <div className='flex justify-center items-center cursor-pointer mt-7  border border-white hover:bg-blue-700 rounded-xl px-2 py-1  transition-all duration-200 uppercase'>
+        <div
+          className={`${
+            disable && "opacity-30"
+          } flex justify-center items-center cursor-pointer mt-7  border border-white hover:bg-blue-700 rounded-xl px-2 py-1  transition-all duration-200 uppercase`}
+        >
           <div className='mr-2 text-xl'>
             <IoExitOutline />
           </div>
-          <button
-            className=''
-            onClick={async () => {
-              try {
-                const data = await logout();
-
-                localStorage.clear();
-                setUser({ id: 0, email: "", name: "" });
-              } catch (err) {
-                if (err instanceof Error) {
-                  setError(err.message);
-                }
-                console.error(err);
-              }
-            }}
-          >
+          <button disabled={disable} onClick={clickLogOut}>
             Выйти
           </button>
         </div>

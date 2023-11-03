@@ -7,6 +7,7 @@ import Teams from "@/components/Team/Teams";
 import Reviews from "@/components/Reviews/Reviews";
 import Download from "@/components/Download/Download";
 import Footer from "@/components/Footer/Footer";
+import Modal from "@/components/Modal/Modal";
 
 const Home: FC = () => {
   return (
@@ -19,6 +20,7 @@ const Home: FC = () => {
         <Teams />
         <Reviews />
         <Download />
+        <Modal />
       </main>
       <Footer />
     </>
