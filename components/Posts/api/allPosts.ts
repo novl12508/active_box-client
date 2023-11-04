@@ -1,21 +1,18 @@
 interface IPostCreatePost {
-  name: string;
-  description: string;
+  title: string;
+  body: string;
 }
 
-export const postCreatePost = async ({
-  name,
-  description,
-}: IPostCreatePost) => {
+export const postCreatePost = async ({ title, body }: IPostCreatePost) => {
   try {
-    const body = JSON.stringify({ name, description });
+    const bodyData = JSON.stringify({ title, body });
 
     const res = await fetch("http://localhost:5000/api/posts/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
-      body,
+      body: bodyData,
     });
 
     if (!res.ok) {

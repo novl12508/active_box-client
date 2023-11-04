@@ -4,6 +4,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { IWindowUser } from "./interface/IWindowUser";
 import { logout } from "./api/logout";
 import ErrorModal from "../Error/ErrorModal";
+import { setTimeoutModalErrorAuth } from "@/helpers/timeout.auth";
 
 const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
   const [error, setError] = useState("");
@@ -24,18 +25,19 @@ const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
       setDisable(false);
       console.error(err);
       setError(JSON.stringify(err));
-      const sleep = setTimeout(() => {
-        setError("");
-        clearTimeout(sleep);
-      }, 2000);
+      setTimeoutModalErrorAuth(setError, 2);
+      // const sleep = setTimeout(() => {
+      //   setError("");
+      //   clearTimeout(sleep);
+      // }, 2000);
     }
   };
 
   return (
     <div
       className={`${
-        account ? "flex" : "hidden"
-      } flex-col items-center justify-between w-52 h-[270px] absolute top-[100%] mt-2 right-0  bg-blue-500 bg-opacity-70 rounded-xl `}
+        account ? "flex opacity-1" : " flex opacity-0"
+      } flex-col items-center justify-between w-52 h-[270px] absolute top-[100%] mt-2 right-0  bg-blue-500  rounded-xl transition-opacity duration-400`}
     >
       <div className='flex justify-center items-center  mt-2'>
         <div className='text-base'>

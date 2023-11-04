@@ -9,8 +9,8 @@ const SubmitHandler = (e: FormEvent) => {
 };
 
 const CreatePost = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setName] = useState("");
+  const [body, setDescription] = useState("");
   const [post, setPost] = useState({});
 
   const nameHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ const CreatePost = () => {
 
   const submitClick = async () => {
     try {
-      const result = await postCreatePost({ name, description });
+      const result = await postCreatePost({ title, body });
       setPost(result);
       console.log(result);
     } catch (e) {
@@ -39,7 +39,7 @@ const CreatePost = () => {
       <div className='flex flex-col w-1/3 gap-2'>
         <label>
           <input
-            value={name}
+            value={title}
             onChange={nameHandler}
             placeholder='Название поста'
             type='text'
@@ -49,7 +49,7 @@ const CreatePost = () => {
         </label>
         <label>
           <textarea
-            value={description}
+            value={body}
             onChange={descriptionHandler}
             placeholder='Текст поста'
             name='description'

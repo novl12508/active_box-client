@@ -4,25 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
 import WindowUser from "../WindowUser/WindowUser";
-
-const routes = [
-  {
-    link: "home",
-    href: "/",
-  },
-  {
-    link: "works",
-    href: "/works",
-  },
-  {
-    link: "posts",
-    href: "/posts",
-  },
-  {
-    link: "auth",
-    href: "/auth",
-  },
-];
+import { routes } from "@/consts/navigation";
 
 const initialUser = { id: 0, email: "", name: "" };
 
@@ -77,7 +59,7 @@ const Navigation: FC<{
       {user.email && (
         <div className='relative'>
           <div
-            className='flex justify-center border px-3 py-2 rounded-full bg-blue-500 hover:bg-blue-700 cursor-pointer transition-colors duration-100 '
+            className='flex justify-center border px-3 py-2 rounded-full bg-blue-500 hover:bg-blue-700 cursor-pointer transition-colors duration-100 select-none'
             onClick={() => setAccount((state) => !state)}
           >
             {user.name && <p className='w-full h-full'>{user.name.at(0)}</p>}

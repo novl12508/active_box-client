@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import ErrorModal from "../Error/ErrorModal";
 import Login from "@/UI/Auth/Login";
 import Registration from "@/UI/Auth/Registration";
+import Button from "@/UI/ButtonAuth/Button";
+import Input from "@/UI/Input/Input";
+import { setTimeoutModalErrorAuth } from "@/helpers/timeout.auth";
 
 const Auth = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -49,10 +52,7 @@ const Auth = () => {
         setError(e.message);
       }
       console.error(e, "Error ReqFetch");
-      const sleep = setTimeout(() => {
-        setError("");
-        clearTimeout(sleep);
-      }, 2000);
+      setTimeoutModalErrorAuth(setError, 2);
     }
   };
 
@@ -75,10 +75,7 @@ const Auth = () => {
         setError(e.message);
       }
       console.error(e, "Error ReqFetch");
-      const sleep = setTimeout(() => {
-        setError("");
-        clearTimeout(sleep);
-      }, 2000);
+      setTimeoutModalErrorAuth(setError, 2);
     }
   };
 
@@ -92,32 +89,33 @@ const Auth = () => {
       className='flex flex-col w-1/4 justify-center items-center gap-5 '
     >
       <h2 className='uppercase text-2xl'>Auth</h2>
-      <input
-        type='email'
-        name='email'
+
+      <Input
         value={email}
-        onChange={emailHandler}
-        className='rounded-md px-5 py-2 w-full bg-blue-950'
+        name='email'
+        type='email'
         placeholder='email'
+        inputlHandler={emailHandler}
       />
+
       {isAuth && (
-        <input
-          type='text'
-          name='name'
+        <Input
           value={username}
-          onChange={userNameHandler}
-          className='rounded-md px-5 py-2 w-full bg-blue-950'
+          name='name'
+          type='text'
           placeholder='name'
+          inputlHandler={userNameHandler}
         />
       )}
-      <input
-        type='password'
-        name='password'
+
+      <Input
         value={password}
-        onChange={passwordHandler}
-        className='rounded-md px-5 py-2 w-full bg-blue-950'
+        name='password'
+        type='password'
         placeholder='password'
+        inputlHandler={passwordHandler}
       />
+
       <div>
         {isAuth ? (
           <Login isAuthClick={isAuthClick} />
@@ -126,29 +124,13 @@ const Auth = () => {
         )}
       </div>
       {isAuth ? (
-        <button
-          className={`${
-            disable && "opacity-40"
-          } px-12 py-2 rounded-md border border-blue-700 ${
-            !disable && "hover:text-black hover:bg-blue-700"
-          } transition-colors duration-200 uppercase`}
-          onClick={reqRegistrClick}
-          disabled={disable}
-        >
-          Registration
-        </button>
+        <Button
+          disable={disable}
+          reqAuthClick={reqRegistrClick}
+          value='Registration'
+        />
       ) : (
-        <button
-          className={`${
-            disable && "opacity-40"
-          } px-12 py-2 rounded-md border border-blue-700 ${
-            !disable && "hover:text-black hover:bg-blue-700"
-          } transition-colors duration-200 uppercase`}
-          onClick={reqLoginClick}
-          disabled={disable}
-        >
-          Log In
-        </button>
+        <Button disable={disable} reqAuthClick={reqLoginClick} value='Log In' />
       )}
       {error && <ErrorModal err={error} />}
     </form>
