@@ -26,10 +26,6 @@ const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
       console.error(err);
       setError(JSON.stringify(err));
       setTimeoutModalErrorAuth(setError, 2);
-      // const sleep = setTimeout(() => {
-      //   setError("");
-      //   clearTimeout(sleep);
-      // }, 2000);
     }
   };
 

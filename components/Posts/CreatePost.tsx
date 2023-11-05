@@ -2,7 +2,8 @@
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { postCreatePost } from "./api/allPosts";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/context/store";
 
 const SubmitHandler = (e: FormEvent) => {
   e.preventDefault();
@@ -11,7 +12,8 @@ const SubmitHandler = (e: FormEvent) => {
 const CreatePost = () => {
   const [title, setName] = useState("");
   const [body, setDescription] = useState("");
-  const [post, setPost] = useState({});
+  const router = useRouter();
+  const { setPosts } = useGlobalContext();
 
   const nameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -23,8 +25,9 @@ const CreatePost = () => {
   const submitClick = async () => {
     try {
       const result = await postCreatePost({ title, body });
-      setPost(result);
+      setPosts((state) => [...state, result]);
       console.log(result);
+      router.push("/posts");
     } catch (e) {
       console.error(e);
     }

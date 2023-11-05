@@ -1,72 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Post from "./Post";
-
-const postsAPI = [
-  {
-    title: "title1",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name1",
-  },
-  {
-    title: "title2",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name2",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-  {
-    title: "title3",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-    name: "name3",
-  },
-];
-
-const initialUser = { id: 0, email: "", name: "" };
+import { useGlobalContext } from "@/context/store";
+import { AllPosts } from "./api/allPosts";
 
 const Posts = () => {
-  const [user, setUser] = useState<{ id: number; email: string; name: string }>(
-    initialUser
-  );
+  const { posts, setPosts, setUser, user } = useGlobalContext();
 
-  const [posts, setPosts] = useState(postsAPI);
-
-  useEffect(() => {
-    const userLocal = localStorage.getItem("user");
-    if (!userLocal) {
-      return;
-    }
-    const user = JSON.parse(localStorage.getItem("user") || "") as {
-      data: { id: number; email: string; name: string };
-    };
-    console.log(user.data);
-    setUser(user.data);
-  }, []);
+  // useEffect(() => {
+  //   const userLocal = localStorage.getItem("user");
+  //   if (!userLocal) {
+  //     return;
+  //   }
+  //   const user = JSON.parse(localStorage.getItem("user") || "") as {
+  //     data: { id: number; email: string; name: string };
+  //   };
+  //   console.log(user.data);
+  //   setUser(user.data);
+  // }, []);
 
   return (
     <div className=''>
@@ -94,7 +47,7 @@ const Posts = () => {
             <Post
               title={post.title}
               body={post.body}
-              name={post.name}
+              name={post.__user__.name}
               key={i + post.title}
             />
           );

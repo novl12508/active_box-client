@@ -23,11 +23,10 @@ body {
   opacity: 0.9;
 }
 
-.posts,
 .sig_in,
 .works_page {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-image: url("../../public/intro/intro.png");
   background-color: blue;
   background-repeat: no-repeat;
@@ -38,6 +37,16 @@ body {
 .create_post {
   width: 100vw;
   height: 100vh;
+  background-image: url("../../public/intro/intro.png");
+  background-color: blue;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.posts {
+  width: 100vw;
+  height: auto;
   background-image: url("../../public/intro/intro.png");
   background-color: blue;
   background-repeat: no-repeat;

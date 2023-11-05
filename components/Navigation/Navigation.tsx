@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
 import WindowUser from "../WindowUser/WindowUser";
 import { routes } from "@/consts/navigation";
+import { useGlobalContext } from "@/context/store";
 
 const initialUser = { id: 0, email: "", name: "" };
 
@@ -12,22 +13,23 @@ const Navigation: FC<{
   classCom?: string;
 }> = ({ classCom }) => {
   const pathname = usePathname();
-  const [user, setUser] = useState<{ id: number; email: string; name: string }>(
-    initialUser
-  );
+  // const [user, setUser] = useState<{ id: number; email: string; name: string }>(
+  //   initialUser
+  // );
   const [account, setAccount] = useState(false);
+  const { setUser, user } = useGlobalContext();
 
-  useEffect(() => {
-    const userLocal = localStorage.getItem("user");
-    if (!userLocal) {
-      return;
-    }
-    const user = JSON.parse(localStorage.getItem("user") || "") as {
-      data: { id: number; email: string; name: string };
-    };
-    console.log(user.data);
-    setUser(user.data);
-  }, []);
+  // useEffect(() => {
+  //   const userLocal = localStorage.getItem("user");
+  //   if (!userLocal) {
+  //     return;
+  //   }
+  //   const user = JSON.parse(localStorage.getItem("user") || "") as {
+  //     data: { id: number; email: string; name: string };
+  //   };
+  //   console.log(user.data);
+  //   setUser(user.data);
+  // }, []);
 
   return (
     <nav
