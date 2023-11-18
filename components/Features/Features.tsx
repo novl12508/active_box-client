@@ -15,7 +15,7 @@ const Features = () => {
         </p>
       </div>
       <Container>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-14'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-12'>
           {featureItems.map((item, i) => {
             return (
               <FeaturesItem
@@ -29,6 +29,10 @@ const Features = () => {
           })}
         </div>
       </Container>
+      <div className='text-center mt-4 font-bold text-black'>
+        Выбирая продукцию ООО «ЗРМ Новохопёрский», покупатели могут быть уверены
+        в её натуральном высоком качестве.
+      </div>
     </div>
   );
 };
