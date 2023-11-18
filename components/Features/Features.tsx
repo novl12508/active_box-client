@@ -5,15 +5,31 @@ import { featureItems } from "@/consts/features";
 
 const Features = () => {
   return (
-    <Container>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 items-end my-24'>
-        {featureItems.map((item, i) => {
-          return (
-            <FeaturesItem src={`${i + 1}`} w={item.w} h={item.h} key={i} />
-          );
-        })}
+    <div className='flex flex-col h-screen overflow-hidden pt-5'>
+      <div className='flex flex-col justify-center items-center mb-5'>
+        <h1 className='text-4xl text-black font-bold mb-7'>
+          ПРИОРИТЕТЫ НАШЕГО МАСЛА
+        </h1>
+        <p className='italic'>
+          Наши главные приоритеты – 100% качество и экологичность!
+        </p>
       </div>
-    </Container>
+      <Container>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center items-center gap-14'>
+          {featureItems.map((item, i) => {
+            return (
+              <FeaturesItem
+                src={`${i + 1}`}
+                w={item.w}
+                h={item.h}
+                text={item.text}
+                key={i}
+              />
+            );
+          })}
+        </div>
+      </Container>
+    </div>
   );
 };
 

@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { FC, useEffect, useState } from "react";
-import WindowUser from "../WindowUser/WindowUser";
+import React, { FC, useState } from "react";
 import { routes } from "@/consts/navigation";
 import { useGlobalContext } from "@/context/store";
 
@@ -13,63 +12,30 @@ const Navigation: FC<{
   classCom?: string;
 }> = ({ classCom }) => {
   const pathname = usePathname();
-  // const [user, setUser] = useState<{ id: number; email: string; name: string }>(
-  //   initialUser
-  // );
-  const [account, setAccount] = useState(false);
-  const { setUser, user } = useGlobalContext();
-
-  // useEffect(() => {
-  //   const userLocal = localStorage.getItem("user");
-  //   if (!userLocal) {
-  //     return;
-  //   }
-  //   const user = JSON.parse(localStorage.getItem("user") || "") as {
-  //     data: { id: number; email: string; name: string };
-  //   };
-  //   console.log(user.data);
-  //   setUser(user.data);
-  // }, []);
+  const { user } = useGlobalContext();
 
   return (
     <nav
-      className={`${classCom} flex justify-center items-center gap-12 text-[#fff] text-sm font-medium uppercase md:gap-7`}
+      className={`${classCom} flex justify-center items-center gap-12 text-[#fff] text-base font-normal  md:gap-7`}
     >
-      {routes
-        .filter((link) => {
-          if (!user.email) {
-            return true;
-          } else {
-            return link.link !== "auth";
-          }
-        })
-        .map((link, i) => {
+      <div className='flex flex-col '>
+        {routes.map((link, i) => {
           return (
             <Link
               href={link.href}
-              className={`nav_link ${
-                pathname === link.href && "text-blue-500"
-              }`}
+              className={`${
+                link.href === pathname
+                  ? "opacity-100 bg-[#535353] navigation_link_shadow"
+                  : "navigation_link  opacity-50 cursor-pointer transition-all duration-100 hover:opacity-100 "
+              } flex justify-start items-center px-5 py-3 mb-5 rounded-2xl`}
               key={i + link.link}
             >
-              {link.link}
+              <div className='text-2xl mr-5'>{link.img}</div>
+              <p className=''>{link.link}</p>
             </Link>
           );
         })}
-
-      {/* modal user */}
-      {user.email && (
-        <div className='relative'>
-          <div
-            className='flex justify-center border px-3 py-2 rounded-full bg-blue-500 hover:bg-blue-700 cursor-pointer transition-colors duration-100 select-none'
-            onClick={() => setAccount((state) => !state)}
-          >
-            {user.name && <p className='w-full h-full'>{user.name.at(0)}</p>}
-          </div>
-
-          <WindowUser account={account} user={user} setUser={setUser} />
-        </div>
-      )}
+      </div>
     </nav>
   );
 };

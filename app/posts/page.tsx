@@ -6,7 +6,7 @@ const PostsPage = () => {
   return (
     <>
       <Header />
-      <main className='posts text-white pt-28'>
+      <main className='posts text-white overflow-hidden'>
         <Posts />
       </main>
     </>

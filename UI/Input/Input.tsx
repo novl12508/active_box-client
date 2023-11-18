@@ -14,7 +14,7 @@ const Input: FC<IInput> = ({
       name={name}
       value={value}
       onChange={inputlHandler}
-      className='rounded-md px-5 py-2 w-full bg-blue-950'
+      className='rounded-md px-5 py-2 w-full focus-visible:outline-gray-400'
       placeholder={placeholder}
     />
   );

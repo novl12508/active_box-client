@@ -10,6 +10,7 @@ import Registration from "@/UI/Auth/Registration";
 import Button from "@/UI/ButtonAuth/Button";
 import Input from "@/UI/Input/Input";
 import { setTimeoutModalErrorAuth } from "@/helpers/timeout.auth";
+import Link from "next/link";
 
 const Auth = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -86,9 +87,9 @@ const Auth = () => {
   return (
     <form
       onSubmit={formSubmit}
-      className='flex flex-col w-1/4 justify-center items-center gap-5 '
+      className='flex flex-col w-1/3 justify-center items-center gap-5 border px-7 py-32 rounded-xl backdrop-blur-sm'
     >
-      <h2 className='uppercase text-2xl'>Auth</h2>
+      <h2 className='uppercase text-2xl mb-12'>Auth</h2>
 
       <Input
         value={email}
@@ -123,6 +124,7 @@ const Auth = () => {
           <Registration isAuthClick={isAuthClick} />
         )}
       </div>
+
       {isAuth ? (
         <Button
           disable={disable}

@@ -7,29 +7,20 @@ import { useGlobalContext } from "@/context/store";
 import { AllPosts } from "./api/allPosts";
 
 const Posts = () => {
-  const { posts, setPosts, setUser, user } = useGlobalContext();
-
-  // useEffect(() => {
-  //   const userLocal = localStorage.getItem("user");
-  //   if (!userLocal) {
-  //     return;
-  //   }
-  //   const user = JSON.parse(localStorage.getItem("user") || "") as {
-  //     data: { id: number; email: string; name: string };
-  //   };
-  //   console.log(user.data);
-  //   setUser(user.data);
-  // }, []);
+  const { posts, user } = useGlobalContext();
 
   return (
     <div className=''>
-      <div className='flex justify-center items-center my-10'>
+      <div className='flex justify-center items-center relative my-10'>
         {user.email ? (
           <Link
             href='/create_post'
-            className='cursor-pointer border border-blue-700 rounded-md px-32 py-2 hover:bg-blue-700 hover:text-black transition-colors duration-200'
+            className='link_post flex justify-center items-center fixed bottom-0 right-0 bg-blue-500 text-4xl font-light p-7 text-center w-[28px] h-[28px] rounded-full mr-7 mb-4 transition-colors duration-200'
           >
-            Create Post
+            <p className='absolute font-normal justify-center items-center bottom-0 w-[100px]  text-base mb-[70px] bg-white text-black rounded-xl hidden'>
+              Create post
+            </p>
+            <p className='mb-[7px]'>+</p>
           </Link>
         ) : (
           <>

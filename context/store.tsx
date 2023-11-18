@@ -6,51 +6,9 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
-
-// const postsAPI = [
-//   {
-//     title: "title1",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name1",
-//   },
-//   {
-//     title: "title2",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name2",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-//   {
-//     title: "title3",
-//     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas earum eum nesciunt saepe aperiam harum nisi nobis non sequi reiciendis",
-//     name: "name3",
-//   },
-// ];
 
 const userAPI = { id: 0, email: "", name: "" };
 
