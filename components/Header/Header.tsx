@@ -8,11 +8,28 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGlobalContext } from "@/context/store";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+import ErrorModal from "../Error/ErrorModal";
+import { reqFetch } from "@/api/reqFetch";
 
 const Header = () => {
   const [show, setShow] = useState(false);
   const pathname = usePathname();
-  const { user } = useGlobalContext();
+  const { user, setUser } = useGlobalContext();
+
+  const logOut = async () => {
+    try {
+      const result = await reqFetch({ url: "api/auth/logout", method: "POST" });
+
+      if (result.status !== 200) {
+        throw "Ошибка выхода";
+      }
+
+      localStorage.clear();
+      setUser({ id: 0, email: "", name: "" });
+    } catch (err) {
+      ErrorModal({ err: `${err}` });
+    }
+  };
 
   return (
     <>
@@ -51,7 +68,10 @@ const Header = () => {
                     <p>Авторизация</p>
                   </div>
                 ) : (
-                  <div className='flex justify-start items-center'>
+                  <div
+                    className='flex justify-start items-center'
+                    onClick={logOut}
+                  >
                     <div className='text-2xl mr-5'>
                       <IoLogOutOutline />
                     </div>
