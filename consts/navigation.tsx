@@ -1,7 +1,8 @@
+import BasketPage from "@/app/basket/page";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdPostAdd } from "react-icons/md";
 import { PiWarningCircleLight } from "react-icons/pi";
-import { TbBrandProducthunt } from "react-icons/tb";
+import { TbBrandProducthunt, TbBasket } from "react-icons/tb";
 
 export const routes = [
   {
@@ -29,5 +30,10 @@ export const routes = [
     link: "О нас",
     img: <PiWarningCircleLight />,
     href: "/about_us",
+  },
+  {
+    link: "Корзина",
+    img: <TbBasket />,
+    href: "/basket",
   },
 ];

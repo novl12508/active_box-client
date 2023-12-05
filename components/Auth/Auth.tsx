@@ -10,7 +10,6 @@ import Registration from "@/UI/Auth/Registration";
 import Button from "@/UI/ButtonAuth/Button";
 import Input from "@/UI/Input/Input";
 import { setTimeoutModalErrorAuth } from "@/helpers/timeout.auth";
-import Link from "next/link";
 
 const Auth = () => {
   const [isAuth, setIsAuth] = useState(false);

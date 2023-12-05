@@ -19,7 +19,7 @@ const RootLayout: FC<IPropsRootLayout> = ({ children }) => {
   return (
     <html lang='ru'>
       <body
-        className={`${roboto.className} antialiased pl-[300px] max-w-[1920px] max-h-screen`}
+        className={`${roboto.className} antialiased pl-[300px] max-w-[1920px] max-h-screen bg-gray-50`}
       >
         <GlobalContextProvidder>
           <Header />

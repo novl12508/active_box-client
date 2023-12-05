@@ -5,7 +5,7 @@ import { featureItems } from "@/consts/features";
 
 const Features = () => {
   return (
-    <div className='flex flex-col h-screen overflow-hidden pt-5'>
+    <div className='flex flex-col  py-5'>
       <div className='flex flex-col justify-center items-center mb-5'>
         <h1 className='text-4xl text-black font-bold mb-7'>
           ПРИОРИТЕТЫ НАШЕГО МАСЛА
@@ -29,7 +29,7 @@ const Features = () => {
           })}
         </div>
       </Container>
-      <div className='text-center mt-4 font-bold text-black'>
+      <div className='text-center mt-10 font-bold text-black'>
         Выбирая продукцию ООО «ЗРМ Новохопёрский», покупатели могут быть уверены
         в её натуральном высоком качестве.
       </div>
