@@ -3,10 +3,9 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Navigation from "../Navigation/Navigation";
-import Container from "@/UI/Container/Container";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useGlobalContext } from "@/context/store";
+import useGlobalContext from "@/context/store";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import ErrorModal from "../Error/ErrorModal";
 import { reqFetch } from "@/api/reqFetch";
@@ -30,6 +29,8 @@ const Header = () => {
       ErrorModal({ err: `${err}` });
     }
   };
+
+  console.log(user);
 
   return (
     <>
@@ -60,7 +61,7 @@ const Header = () => {
                 className='flex py-3 px-5 text-base font-normal text-white'
                 href='/auth'
               >
-                {!user.email ? (
+                {user.email === "" ? (
                   <div className='flex justify-start items-center'>
                     <div className='text-2xl mr-5'>
                       <IoLogInOutline />

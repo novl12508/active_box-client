@@ -1,4 +1,3 @@
-import Header from "@/components/Header/Header";
 import Works from "@/components/Works/Works";
 import React from "react";
 

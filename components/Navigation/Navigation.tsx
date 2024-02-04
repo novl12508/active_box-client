@@ -2,17 +2,45 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { routes } from "@/consts/navigation";
-import { useGlobalContext } from "@/context/store";
-
-const initialUser = { id: 0, email: "", name: "" };
+import useGlobalContext from "@/context/store";
+import { AllPosts } from "../Posts/api/allPosts";
 
 const Navigation: FC<{
   classCom?: string;
 }> = ({ classCom }) => {
   const pathname = usePathname();
-  const { user } = useGlobalContext();
+  const { user: userContext, posts, setPosts, setUser } = useGlobalContext();
+
+  useEffect(() => {
+    const postsFetch = async () => {
+      try {
+        const posts = await AllPosts();
+        setPosts(posts);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const userLocal = localStorage.getItem("user");
+
+    if (!userLocal) {
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem("user") || "") as {
+      data: { id: number; email: string; name: string };
+    };
+
+    console.log(user.data, "Data");
+
+    setUser(user.data);
+
+    console.log(userContext, "Data userContext");
+
+    postsFetch();
+  }, []);
 
   return (
     <nav

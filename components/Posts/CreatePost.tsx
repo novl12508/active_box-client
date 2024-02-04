@@ -3,7 +3,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { postCreatePost } from "./api/allPosts";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "@/context/store";
+import useGlobalContext from "@/context/store";
 
 const SubmitHandler = (e: FormEvent) => {
   e.preventDefault();
@@ -25,8 +25,9 @@ const CreatePost = () => {
   const submitClick = async () => {
     try {
       const result = await postCreatePost({ title, body });
-      setPosts((state) => [...state, result]);
       console.log(result);
+      setPosts((state) => [...state, result]);
+      console.log(result, "POSTS");
       router.push("/posts");
     } catch (e) {
       console.error(e);

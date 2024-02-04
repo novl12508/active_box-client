@@ -6,7 +6,6 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
@@ -16,7 +15,7 @@ export interface IPost {
   id: number;
   title: string;
   body: string;
-  __user__: { name: string };
+  user: { name: string };
 }
 
 export interface IUser {
@@ -32,7 +31,7 @@ interface IGlobalContext {
   setPosts: Dispatch<SetStateAction<IPost[]>>;
 }
 
-const ContextApp = createContext<IGlobalContext>({
+export const ContextApp = createContext<IGlobalContext>({
   user: userAPI,
   posts: [],
   setUser: () => {},
@@ -47,6 +46,8 @@ export const GlobalContextProvidder = ({
   const [user, setUser] = useState<IUser>(userAPI);
   const [posts, setPosts] = useState<[] | IPost[]>([]);
 
+  console.log(user, "Context User");
+
   return (
     <ContextApp.Provider value={{ user, setUser, posts, setPosts }}>
       {children}
@@ -54,4 +55,4 @@ export const GlobalContextProvidder = ({
   );
 };
 
-export const useGlobalContext = () => useContext(ContextApp);
+export default () => useContext(ContextApp);

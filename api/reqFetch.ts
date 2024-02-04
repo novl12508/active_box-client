@@ -7,6 +7,9 @@ interface IReq {
         name?: string;
         password: string;
       }
+    | {
+        id: string;
+      }
     | {};
 }
 
