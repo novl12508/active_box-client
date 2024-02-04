@@ -1,54 +1,65 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { reqFetch, reqFetchGet } from "@/api/reqFetch";
+import { TypeProduct } from "@/components/Product/interfaces/products.interface";
+import ErrorModal from "@/components/Error/ErrorModal";
 import Product from "@/components/Product/Product";
 
-const arr = {
-  product: [
-    {
-      Product: {
-        id: 2,
-        title: "product1",
-        text: "product2",
-        quantity: 1,
-      },
-    },
-    {
-      Product: {
-        id: 2,
-        title: "product1",
-        text: "product2",
-        quantity: 1,
-      },
-    },
-    {
-      Product: {
-        id: 2,
-        title: "product1",
-        text: "product2",
-        quantity: 1,
-      },
-    },
-  ],
-};
-
 const BasketPage = () => {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [value, setValue] = useState(0);
+  const [products, setProducts] = useState<[] | TypeProduct[]>([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getAllProducts() {
+      try {
+        setLoading(true);
+        const res = await reqFetchGet({ url: "api/basket", method: "GET" });
+
+        if (res.status !== 200) {
+          throw await res.json();
+        }
+
+        const products = (await res.json()) as TypeProduct[];
+        setProducts(products);
+        setLoading(false);
+      } catch (error) {
+        if (typeof error === "string") {
+          setError(error);
+        }
+        console.log(error);
+        setLoading(false);
+      }
+    }
+
+    getAllProducts();
+  }, []);
+
+  if (!!error) {
+    return ErrorModal({ err: error });
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className='p-20'>
-      {arr.product.map((item, i) => {
-        return (
-          <Product
-            text={item.Product.text}
-            value={item.Product.quantity}
-            title={item.Product.title}
-            setValue={setValue}
-          />
-        );
-      })}
+      {products.length !== 0 ? (
+        products.map((item, i) => {
+          console.log(products);
+          return (
+            <Product
+              title={item.product.title}
+              text={item.product.text}
+              link={item.product.link}
+            />
+          );
+        })
+      ) : (
+        <div>Пусто</div>
+      )}
     </div>
   );
 };

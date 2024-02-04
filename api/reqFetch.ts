@@ -21,3 +21,14 @@ export const reqFetch = ({ url, method, body = {} }: IReq) => {
     body: JSON.stringify(body),
   });
 };
+
+export const reqFetchGet = ({ url, method }: IReq) => {
+  const host = "http://localhost:5000";
+  return fetch(`${host}/${url}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "include",
+  });
+};

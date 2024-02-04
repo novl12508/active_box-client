@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { IProductProps } from "./interfaces/products.interface";
+import Link from "next/link";
 
-const Product: FC<IProductProps> = ({ text, title, value, setValue }) => {
+const Product: FC<IProductProps> = ({ text, title, link }) => {
   return (
-    <div className='product flex bg-white rounded-xl px-5 py-5'>
+    <div className='product flex bg-white rounded-xl px-5 py-5 mb-5'>
       <div>
         <Image
           src={"/works/Rectangle1.png"}
@@ -15,35 +16,16 @@ const Product: FC<IProductProps> = ({ text, title, value, setValue }) => {
           alt='product'
         />
       </div>
-      <div className='flex flex-col ml-10'>
-        <div>
-          <h1>{title}</h1>
+      <div className='flex flex-col ml-10 w-full justify-center items-end'>
+        <div className='flex flex-col items-end'>
+          <h1 className='uppercase mb-5'>{title}</h1>
           <p>{text}</p>
         </div>
-        <div className='px-1 py-2'>
-          <span
-            className='bg-gray-100 mr-2 cursor-pointer px-2 py-2'
-            onClick={() => setValue((state) => --state)}
-          >
-            &lt;
-          </span>
-          <input
-            type='text'
-            value={value}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValue(+e.target.value);
-            }}
-            className='bg-gray-100 w-[30px] text-center px-2 py-2'
-            disabled
-          />
-          <span
-            className='bg-gray-100 ml-2 cursor-pointer px-2 py-2'
-            onClick={() => setValue((state) => ++state)}
-          >
-            &gt;
-          </span>
-        </div>
-        <button>button</button>
+        <Link href={link}>
+          <button className='mt-3 border p-2 rounded-lg uppercase hover:bg-gray-200'>
+            перейти
+          </button>
+        </Link>
       </div>
     </div>
   );
