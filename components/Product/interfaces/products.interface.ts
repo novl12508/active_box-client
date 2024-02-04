@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export type TypeProduct = {
   product: {
     id: number;
@@ -7,10 +5,12 @@ export type TypeProduct = {
     text: string;
     link: string;
   };
+  img: string;
 };
 
 export interface IProductProps {
   title: string;
   text: string;
   link: string;
+  img: string;
 }

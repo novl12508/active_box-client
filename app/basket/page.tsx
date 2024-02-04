@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { reqFetch, reqFetchGet } from "@/api/reqFetch";
+import { reqFetchGet } from "@/api/reqFetch";
 import { TypeProduct } from "@/components/Product/interfaces/products.interface";
 import ErrorModal from "@/components/Error/ErrorModal";
 import Product from "@/components/Product/Product";
@@ -54,6 +54,7 @@ const BasketPage = () => {
               title={item.product.title}
               text={item.product.text}
               link={item.product.link}
+              img={item.img}
             />
           );
         })
