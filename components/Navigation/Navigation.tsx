@@ -33,11 +33,7 @@ const Navigation: FC<{
       data: { id: number; email: string; name: string };
     };
 
-    console.log(user.data, "Data");
-
     setUser(user.data);
-
-    console.log(userContext, "Data userContext");
 
     postsFetch();
   }, []);

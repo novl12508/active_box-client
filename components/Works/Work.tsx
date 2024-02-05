@@ -34,7 +34,7 @@ const btn = async (id: string, img: string) => {
 
     console.log(res);
 
-    if (res.status !== 200) {
+    if (res.status !== 201) {
       console.error(await res.json());
     }
 

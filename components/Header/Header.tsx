@@ -12,6 +12,7 @@ import { reqFetch } from "@/api/reqFetch";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const pathname = usePathname();
   const { user, setUser } = useGlobalContext();
 
@@ -26,11 +27,12 @@ const Header = () => {
       localStorage.clear();
       setUser({ id: 0, email: "", name: "" });
     } catch (err) {
-      ErrorModal({ err: `${err}` });
+      if (typeof err === "string") {
+        return setError(err);
+      }
+      console.error(err);
     }
   };
-
-  console.log(user);
 
   return (
     <>
@@ -95,6 +97,7 @@ const Header = () => {
           <Navigation classCom='flex-col absolute top-14 items-center w-full bg-blue-900 opacity-90 py-7' />
         )}
       </div>
+      {error && ErrorModal({ err: error, setError })}
     </>
   );
 };

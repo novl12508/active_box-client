@@ -1,5 +1,6 @@
 "use client";
 
+import { TypeProduct } from "@/components/Product/interfaces/products.interface";
 import {
   Dispatch,
   ReactNode,
@@ -27,8 +28,10 @@ export interface IUser {
 interface IGlobalContext {
   user: IUser;
   posts: IPost[];
+  products: TypeProduct[];
   setUser: Dispatch<SetStateAction<IUser>>;
   setPosts: Dispatch<SetStateAction<IPost[]>>;
+  setProducts: Dispatch<SetStateAction<TypeProduct[]>>;
 }
 
 export const ContextApp = createContext<IGlobalContext>({
@@ -36,6 +39,8 @@ export const ContextApp = createContext<IGlobalContext>({
   posts: [],
   setUser: () => {},
   setPosts: (): IPost[] => [],
+  products: [],
+  setProducts: () => {},
 });
 
 export const GlobalContextProvidder = ({
@@ -45,11 +50,12 @@ export const GlobalContextProvidder = ({
 }) => {
   const [user, setUser] = useState<IUser>(userAPI);
   const [posts, setPosts] = useState<[] | IPost[]>([]);
-
-  console.log(user, "Context User");
+  const [products, setProducts] = useState<[] | TypeProduct[]>([]);
 
   return (
-    <ContextApp.Provider value={{ user, setUser, posts, setPosts }}>
+    <ContextApp.Provider
+      value={{ user, setUser, posts, setPosts, products, setProducts }}
+    >
       {children}
     </ContextApp.Provider>
   );

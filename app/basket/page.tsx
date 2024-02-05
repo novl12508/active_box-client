@@ -5,24 +5,26 @@ import { reqFetchGet } from "@/api/reqFetch";
 import { TypeProduct } from "@/components/Product/interfaces/products.interface";
 import ErrorModal from "@/components/Error/ErrorModal";
 import Product from "@/components/Product/Product";
+import LoadingPage from "@/components/Loading/LoadingPage";
+import useGlobalContext from "@/context/store";
 
 const BasketPage = () => {
-  const [products, setProducts] = useState<[] | TypeProduct[]>([]);
+  const { products, setProducts } = useGlobalContext();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getAllProducts() {
       try {
-        setLoading(true);
         const res = await reqFetchGet({ url: "api/basket", method: "GET" });
 
         if (res.status !== 200) {
           throw await res.json();
         }
 
-        const products = (await res.json()) as TypeProduct[];
-        setProducts(products);
+        const result = (await res.json()) as TypeProduct[];
+        console.log(result);
+        setProducts(result);
         setLoading(false);
       } catch (error) {
         if (typeof error === "string") {
@@ -36,32 +38,33 @@ const BasketPage = () => {
     getAllProducts();
   }, []);
 
-  if (!!error) {
-    return ErrorModal({ err: error });
-  }
-
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
-    <div className='p-20'>
-      {products.length !== 0 ? (
-        products.map((item, i) => {
-          console.log(products);
-          return (
-            <Product
-              title={item.product.title}
-              text={item.product.text}
-              link={item.product.link}
-              img={item.img}
-            />
-          );
-        })
-      ) : (
-        <div>Пусто</div>
-      )}
-    </div>
+    <>
+      <div className='p-20'>
+        {products.length !== 0 ? (
+          products.map((item, i) => {
+            return (
+              <Product
+                title={item.product.title}
+                text={item.product.text}
+                link={item.product.link}
+                img={item.img}
+                productId={item.id}
+                setError={setError}
+                key={i}
+              />
+            );
+          })
+        ) : (
+          <div>Пусто</div>
+        )}
+      </div>
+      {error && ErrorModal({ err: error, setError })}
+    </>
   );
 };
 

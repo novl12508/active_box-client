@@ -8,11 +8,11 @@ import { AiOutlineClose } from "react-icons/ai";
 const Modal = () => {
   const [show, setShow] = useState(false);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setShow(true);
-  //   }, 30 * 1000);
-  // }, []);
+  useEffect(() => {
+    setInterval(() => {
+      setShow(true);
+    }, 1 * 1000);
+  }, []);
   return (
     <div
       className={`${
