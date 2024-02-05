@@ -7,6 +7,7 @@ import ErrorModal from "@/components/Error/ErrorModal";
 import Product from "@/components/Product/Product";
 import LoadingPage from "@/components/Loading/LoadingPage";
 import useGlobalContext from "@/context/store";
+import Link from "next/link";
 
 const BasketPage = () => {
   const { products, setProducts } = useGlobalContext();
@@ -44,7 +45,7 @@ const BasketPage = () => {
 
   return (
     <>
-      <div className='p-20'>
+      <div className='flex flex-col justify-center p-20'>
         {products.length !== 0 ? (
           products.map((item, i) => {
             return (
@@ -60,7 +61,15 @@ const BasketPage = () => {
             );
           })
         ) : (
-          <div>Пусто</div>
+          <div className='flex w-full justify-center text-xl text-black'>
+            Товаров нет.
+            <Link
+              href='/products'
+              className='text-blue-500 hover:underline ml-3'
+            >
+              Хотите добавить товары
+            </Link>
+          </div>
         )}
       </div>
       {error && ErrorModal({ err: error, setError })}

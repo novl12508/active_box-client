@@ -32,7 +32,7 @@ export const routes = [
     href: "/about_us",
   },
   {
-    link: "Корзина",
+    link: "Избранное",
     img: <TbBasket />,
     href: "/basket",
   },
