@@ -8,9 +8,10 @@ import Product from "@/components/Product/Product";
 import LoadingPage from "@/components/Loading/LoadingPage";
 import useGlobalContext from "@/context/store";
 import Link from "next/link";
+import { userAgent } from "next/server";
 
 const BasketPage = () => {
-  const { products, setProducts } = useGlobalContext();
+  const { products, setProducts, user } = useGlobalContext();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -41,6 +42,17 @@ const BasketPage = () => {
 
   if (loading) {
     return <LoadingPage />;
+  }
+
+  if (user.email === "") {
+    return (
+      <div className='w-full h-full flex justify-center mt-10 text-sm text-black'>
+        Если хотите добавить товар.
+        <Link href='/auth' className='ml-2 text-blue-500 hover:underline'>
+          Авторизуйтесь
+        </Link>
+      </div>
+    );
   }
 
   return (
