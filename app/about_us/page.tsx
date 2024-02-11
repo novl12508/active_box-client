@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutUsPage = () => {
   return (
-    <section className='flex flex-col justify-center items-center text-center bg-[#EEECE9] h-screen px-72 text-black'>
+    <section className='flex flex-col justify-center items-center text-centers w-full mt-20 px-72 text-black text-center'>
       <h1 className='text-4xl font-bold mb-32'>О НАС</h1>
       <p className='text-4xl'>
         Новохопёрский завод растительных масел – завод с вековой историей

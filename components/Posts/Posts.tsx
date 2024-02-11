@@ -8,8 +8,6 @@ import useGlobalContext from "@/context/store";
 const Posts = () => {
   const { posts, user } = useGlobalContext();
 
-  console.log(posts);
-
   return (
     <div className=''>
       <div className='flex justify-center items-center relative my-10'>

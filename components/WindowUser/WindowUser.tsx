@@ -64,7 +64,7 @@ const WindowUser: FC<IWindowUser> = ({ user, setUser, account }) => {
           </button>
         </div>
       </div>
-      {error && <ErrorModal err={error} />}
+      {error && <ErrorModal err={error} setError={setError} />}
     </div>
   );
 };

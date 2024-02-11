@@ -11,7 +11,7 @@ const Modal = () => {
   // useEffect(() => {
   //   setInterval(() => {
   //     setShow(true);
-  //   }, 30 * 1000);
+  //   }, 5 * 1000);
   // }, []);
   return (
     <div

@@ -43,7 +43,6 @@ const Auth = () => {
       const data = JSON.stringify(result);
       localStorage.setItem("user", data);
 
-      console.log(result, "login");
       setDisable(false);
       router.push("/");
     } catch (e) {
@@ -133,7 +132,7 @@ const Auth = () => {
       ) : (
         <Button disable={disable} reqAuthClick={reqLoginClick} value='Log In' />
       )}
-      {error && <ErrorModal err={error} />}
+      {error && <ErrorModal err={error} setError={setError} />}
     </form>
   );
 };
