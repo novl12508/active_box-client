@@ -10,8 +10,10 @@ import Registration from "@/UI/Auth/Registration";
 import Button from "@/UI/ButtonAuth/Button";
 import Input from "@/UI/Input/Input";
 import { setTimeoutModalErrorAuth } from "@/helpers/timeout.auth";
+import useGlobalContext from "@/context/store";
 
 const Auth = () => {
+  const { setUser } = useGlobalContext();
   const [isAuth, setIsAuth] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
@@ -38,12 +40,15 @@ const Auth = () => {
   const reqLoginClick = async () => {
     try {
       setDisable(true);
-      const result = await reqLogin(email, password);
+      const result = (await reqLogin(email, password)) as {
+        data: { id: number; email: string; name: string };
+      };
 
       const data = JSON.stringify(result);
       localStorage.setItem("user", data);
 
       setDisable(false);
+      setUser(result.data);
       router.push("/");
     } catch (e) {
       setDisable(false);
